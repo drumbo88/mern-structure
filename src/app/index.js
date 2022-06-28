@@ -1,6 +1,17 @@
 import React from 'react'
-//import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 
-import App from './app'
+import App from './App'
+import axios from 'axios'
 
-React.render(<App />, document.getElementById('app'))
+//axios.defaults.baseURL = 'http://localhost:4000/api'
+axios.defaults.headers.common['Accept'] = 'application/json'
+axios.defaults.headers.common['Content-Type'] = 'application/json'
+const authToken = localStorage.getItem('authToken')
+if (authToken)
+    axios.defaults.headers.common['auth-token'] = `Bearer ${authToken}`;
+
+const root = ReactDOM.createRoot(document.getElementById("app"));
+root.render(
+    <App />
+)

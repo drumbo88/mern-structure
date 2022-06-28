@@ -7,8 +7,8 @@ module.exports = async () => {
     console.log('Conectando a la BD...')
 
     return new Promise((resolve, reject) => {
-        connectOptions = { useNewUrlParser: true, useUnifiedTopology: true, serverSelectionTimeoutMS : 1000 }
-        mongoose.connect(process.env.CONNECTION_URL, connectOptions)
+        connectOptions = { useNewUrlParser: true, useUnifiedTopology: true, serverSelectionTimeoutMS : DB_CONNECTION_TIMEOUT }
+        mongoose.connect(process.env.DB_CONNECTION_URL, connectOptions)
         .then(
             db => { console.log("DB is connected"); resolve(db) },
             error => reject(`Error: ${error.message}`)

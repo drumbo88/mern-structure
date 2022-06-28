@@ -2,5 +2,5 @@
 const Algo = require('../models/algo')
 
 exports.algoLista = (req, res) => {
-    return res.json(Algo.all())
+    return res.json({message: 'AlgoLista'})
 }

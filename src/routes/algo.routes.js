@@ -1,14 +1,13 @@
 const express = require('express');
-const cAlgo = require('../controllers/algo.controller');
 const router = express.Router();
-
-// Importar modelos
+const checkAuth = require('../middlewares/auth')
 
 // Importar controladores
+const cAlgo = require('../controllers/algo.controller');
 
 // Definición de rutas 
 router.route('/')
-    .get(cAlgo.algoLista)
+    .get(checkAuth, cAlgo.algoLista)
 
 // Export
 module.exports = router

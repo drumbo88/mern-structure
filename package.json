@@ -1,23 +1,27 @@
 {
-  "name": "moegui",
+  "name": "proyect-name",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "webpack": "webpack --mode development",
+    "start": "set NODE_ENV=production && node src/index.js",
+    "dev": "set NODE_ENV=development && nodemon src/index.js",
+    "webpack": "webpack --mode development --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "mongoose": "^6.4.0"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.4.0",
+    "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.5",
