@@ -19,14 +19,17 @@ app.use(express.json())
 app.use(cors()) // <- antes de las rutas 
 
 // ----- Routes -----
-app.use('/', require('./routes/root.routes'))
+app.use('/api', require('./routes/root.routes'))
 app.use('/api/algo', require('./routes/algo.routes'))
 
 // Error de ruta
-/*app.use((req, res, next) => {
-    const error = new Error('Route not found')
-    error.status = 404
-    next(error)
+app.use(express.static(path.join(__dirname, 'public')))
+app.use('/', (req, res, next) => {
+    /*const error = new Error('Route not found')
+    error.status = 404*/
+    console.log(path.join(__dirname, 'public'))
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+    //next()
 })
 
 // Errors handler
@@ -41,10 +44,10 @@ app.use((error, req, res, next) => {
         }
     })
     //throw error
-})*/
+})
 
 // ----- Static files -----
-app.use(express.static(path.join(__dirname, 'public')))
+//app.use(express.static(path.join(__dirname, 'public')))
 
 // ########## Starting the server ##########
 const dbInit = require('./database')

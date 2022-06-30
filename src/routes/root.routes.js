@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
 
-/*router.get('/', (req, res) => {
+router.get('/', (req, res) => {
     res.json({ message: 'API Working' })
-})*/
+})
 router.post('/login', (req, res) => {
     const envMode = req.app.get('env').trim()
     switch (envMode) {

@@ -3,16 +3,16 @@ import axios from 'axios'
   
 function AlgoPage() {
     //const [algoState, setAlgoState] = React.useState({});
-    const sendPost = () => {
-        axios.post('/api/algo')
-            .then(res => alert(res.message))
-            .catch(err => alert("Error: "+err.message))
+    const sendPost = (e) => {
+        axios.post('/algo')
+            .then(res => alert(res.data.message))
+            .catch(err => alert(err.response.data.message ?? err.message))
     }
 
     return (
-        <a onClick={sendPost}>
+        <button onClick={sendPost}>
             Hacer POST
-        </a>
+        </button>
     )
 }
 
