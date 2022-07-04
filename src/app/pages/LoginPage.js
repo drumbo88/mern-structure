@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
   
-function LoginPage() {
+function LoginPage({setLoggedIn}) {
     const navigate = useNavigate()
 
     const login = () => {
@@ -13,6 +13,7 @@ function LoginPage() {
                     throw new Error('Falló la autenticación')
                 localStorage.setItem('authToken', token)
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                setLoggedIn(true)
                 navigate('/algo')
                 //navigate('/home')
             })

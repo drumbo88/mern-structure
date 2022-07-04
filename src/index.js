@@ -8,8 +8,17 @@ const dotenv = require('dotenv')
 
 // ----- Settings -----
 dotenv.config() // Copies .env to process.env
-const PORT = process.env.API_PORT || 5000
-const POST_MAX_SIZE = process.env.POST_MAX_SIZE || "30mb"
+
+const {
+    // PORT = 5000,
+    NODE_ENV = "develpoment",
+    POST_MAX_SIZE = "30mb",
+} = process.env
+
+const PORT = NODE_ENV == "test" 
+    ? (process.env.API_PORT_TEST || 5001)
+    : (process.env.API_PORT || 5000)
+//const POST_MAX_SIZE = process.env.POST_MAX_SIZE || "30mb"
 
 // ----- Middlewares -----
 app.use(bodyParser.json({limit: POST_MAX_SIZE, extended: true}))
@@ -27,7 +36,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', (req, res, next) => {
     /*const error = new Error('Route not found')
     error.status = 404*/
-    console.log(path.join(__dirname, 'public'))
     res.sendFile(path.join(__dirname, 'public', 'index.html'))
     //next()
 })
@@ -50,13 +58,17 @@ app.use((error, req, res, next) => {
 //app.use(express.static(path.join(__dirname, 'public')))
 
 // ########## Starting the server ##########
-const dbInit = require('./database')
+const { dbInit, connStirng } = require('./database')
 
-app.listen(PORT, () => {
-    if (process.env.DB_CONNECTION_URL) {
-        dbInit()
-            .then(db => console.log(db))
-            .catch(err => console.error(err))
-    }
-    console.log(`Server online on port ${PORT}`)    
-})
+const server = (NODE_ENV == 'test') 
+    ? null 
+    : app.listen(PORT, () => {
+        if (connStirng) {
+            dbInit()
+                .then(db => console.log(db))
+                .catch(err => console.error(err))
+        }
+        console.log(`Server online on port ${PORT}`)    
+    })
+
+module.exports = { app, server }
