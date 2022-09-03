@@ -29,7 +29,7 @@ app.use(cors()) // <- antes de las rutas
 
 // ----- Routes -----
 app.use('/api', require('./routes/root.routes'))
-app.use('/api/algo', require('./routes/algo.routes'))
+app.use('/api/algos', require('./routes/algos.routes'))
 
 // Error de ruta
 app.use(express.static(path.join(__dirname, 'public')))
